@@ -1,6 +1,7 @@
 # COS 521 Final Project
 # Algorithm Implementation 
 
+import sys
 import fib_heap as fh
 from collections import defaultdict
 from collections import deque
@@ -276,14 +277,14 @@ class SmartTrendPredictor(object):
 # see what the key counts are (what priorities exist),
 # see what the top ones are for the test file 'tweet_data', 
 # a file that only spans a few hours (so the history stuff doesn't get tested..)
-def test():
-	stp = SmartTrendPredictor('tweet_data')
+def test(inputFile):
+	stp = SmartTrendPredictor(inputFile)
 	stp.print_all_keys()
 	print '============================'
 	top5 = stp.get_topk_hashtags(5)
 	top10 = stp.get_topk_hashtags(10)
 	top15 = stp.get_topk_hashtags(15)
-	top4000 = stp.get_topk_hashtags(4000)
+	top50 = stp.get_topk_hashtags(50)
 	print '----------------------------'
 	print 'Top 5 in order:'
 	for tag_pair in top5:
@@ -297,11 +298,15 @@ def test():
 	for tag_pair in top15:
 		print str(tag_pair[1]) + ", " + str(tag_pair[0])
 	print '----------------------------'
-	print 'Top 4000 in order:'
-	for tag_pair in top4000:
+	print 'Top 50 in order:'
+	for tag_pair in top50:
 		print str(tag_pair[1]) + ", " + str(tag_pair[0])
 	print '----------------------------'
 
+if len(sys.argv) != 2:
+	print 'Usage: python tweet_parser.py <tweet_file.json>'
+	sys.exit()
 
+test(sys.argv[1])
 
 
